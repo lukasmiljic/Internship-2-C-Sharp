@@ -53,15 +53,15 @@ namespace DUMP___zad2._4
         }
         public static int InputPassword()
         {
-            string unesenaLozinka = "";
+            string inputPassword = "";
             do
             {
                 Console.Clear();
                 Console.Write("Unesite 0 za povratak na glavni meni\nLozinka: ");
-                unesenaLozinka = Console.ReadLine();
-                if (unesenaLozinka == "0") return 1;
+                inputPassword = Console.ReadLine();
+                if (inputPassword == "0") return 1;
 
-                if (!ValidatePassword(unesenaLozinka))
+                if (!ValidatePassword(inputPassword))
                 {
                     Helper.ErrorMessage(1);
                     continue;
@@ -79,9 +79,9 @@ namespace DUMP___zad2._4
         {
             int sum = 0;
             Console.Clear();
-            foreach (var artikal in articles)
+            foreach (var article in articles)
             {
-                sum += artikal.Amount;
+                sum += article.Amount;
             }
             Console.WriteLine($"U trgovini je ukupno {sum} artikala");
             Helper.PressAnything();
@@ -90,58 +90,58 @@ namespace DUMP___zad2._4
         {
             double sum = 0;
             Console.Clear();
-            foreach (var artikal in articles)
+            foreach (var article in articles)
             {
-                sum += artikal.Price;
+                sum += article.Price;
             }
             Console.WriteLine($"Vrijednost svih ne prodanih artikala je {sum}");
             Helper.PressAnything();
         }
-        public static void SoldValue(List<Receipt> articles)
+        public static void SoldValue(List<Receipt> receipts)
         {
             double sum = 0;
             Console.Clear();
             
-            foreach (var racun in articles)
+            foreach (var receipt in receipts)
             {
                 
-                foreach (var proizvod in articles[articles.IndexOf(racun)].receiptArticles)
+                foreach (var article in receipts[receipts.IndexOf(receipt)].receiptArticles)
                 {
-                    sum += proizvod.Price;
+                    sum += article.Price;
                 }
             }
             Console.WriteLine($"Vrijednost svih prodanih artikala je {sum}");
             Helper.PressAnything();
         }
-        public static void MonthlyProfits(List<Receipt> articles)
+        public static void MonthlyProfits(List<Receipt> receipts)
         {
-            var godina = 0;
-            var mjesec = 0;
-            var placa = 0;
-            var ostaliTroskovi = 0;
-            var ukupno = 0.0;
+            var year = 0;
+            var month = 0;
+            var pay = 0;
+            var otherExpenses = 0;
+            var sum = 0.0;
             Console.Clear();
             Console.WriteLine("Stanje po mjescima");
             Console.Write("Godina:");
-            godina = int.Parse(Console.ReadLine());
+            year = int.Parse(Console.ReadLine());
             Console.Write("Mjesec:");
-            mjesec = int.Parse(Console.ReadLine());
+            month = int.Parse(Console.ReadLine());
             Console.WriteLine("Placa: ");
-            placa = int.Parse(Console.ReadLine());
+            pay = int.Parse(Console.ReadLine());
             Console.WriteLine("Ostali troskovi: ");
-            ostaliTroskovi=int.Parse(Console.ReadLine());
-            foreach (var racun in articles)
+            otherExpenses=int.Parse(Console.ReadLine());
+            foreach (var receipt in receipts)
             {
-                if (racun.IssuingDate.Year == godina && racun.IssuingDate.Month == mjesec)
+                if (receipt.IssuingDate.Year == year && receipt.IssuingDate.Month == month)
                 {
-                    foreach (var proizvod in articles[articles.IndexOf(racun)].receiptArticles)
+                    foreach (var proizvod in receipts[receipts.IndexOf(receipt)].receiptArticles)
                     {
-                        ukupno += proizvod.Price;
+                        sum += proizvod.Price;
                     }
                 }
             }
 
-            Console.WriteLine($"Ukupna zarada je {ukupno*1/3-placa-ostaliTroskovi}");
+            Console.WriteLine($"Ukupna zarada je {sum*1/3-pay-otherExpenses}");
             Helper.PressAnything();
         }
     }
