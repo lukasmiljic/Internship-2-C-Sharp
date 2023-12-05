@@ -94,5 +94,10 @@ namespace DUMP___zad2._4
                 }
             } while (true);
         }
+        public static void PressAnything()
+        {
+            Console.WriteLine("Unesite bilo sto za nastavak...");
+            Console.ReadLine();
+        }
     }
 }

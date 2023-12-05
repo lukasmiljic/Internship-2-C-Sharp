@@ -86,8 +86,8 @@ namespace DUMP___zad2._4
                 inputSuccess = int.TryParse(Console.ReadLine(), out kolicina);
                 if (!inputSuccess)
                 {
-                    Console.WriteLine("Greska pri unosu kolicine!\n" +
-                        "Pritisnite bilo sto kako bi pokusali ponovno...");
+                    Console.WriteLine("Greska pri unosu kolicine!");
+                    Helper.PressAnything();
                     continue;
                 }
 
@@ -95,7 +95,8 @@ namespace DUMP___zad2._4
                 inputSuccess = double.TryParse(Console.ReadLine(), out cijena);
                 if (!inputSuccess)
                 {
-                    Console.WriteLine("Greska pri unosu cijene!\nPritisnite bilo sto kako bi pokusali ponovno...");
+                    Console.WriteLine("Greska pri unosu cijene!");
+                    Helper.PressAnything();
                     continue;
                 }
 
@@ -103,8 +104,8 @@ namespace DUMP___zad2._4
                 inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumIsteka);
                 if (!inputSuccess)
                 {
-                    Console.WriteLine("Greska prilikom unosa datuma\nPritisnite bilo sto kako bi pokusali ponovno...");
-                    Console.ReadLine();
+                    Console.WriteLine("Greska prilikom unosa datuma");
+                    Helper.PressAnything();
                     continue;
                 }
 
@@ -114,8 +115,7 @@ namespace DUMP___zad2._4
                     $"s cijenom {cijena} EUR, kolicinom {kolicina} i " +
                     $"datum isteka valjanosti od {datumIsteka.ToString("d/M/yyyy")}");
 
-                Console.WriteLine("Pritisnite bilo sta za povratak na glavni izbornik...");
-                Console.ReadLine();
+                Helper.PressAnything();
                 break;
             } while (true);
         }
@@ -162,22 +162,22 @@ namespace DUMP___zad2._4
             foundArticleFlag = artikli.Any(x => x.Naziv == naziv);
             if (foundArticleFlag == false)
             {
-                Console.Write($"Artikal s nazivom {naziv} nije pronaden\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.Write($"Artikal s nazivom {naziv} nije pronaden");
+                Helper.PressAnything();
                 return;
             }
             Console.WriteLine($"Arikal {naziv} je pronaden i biti ce obrisan");
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Brisanje artikla otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Brisanje artikla otkazano");
+                Helper.PressAnything();
                 return;
             }
 
             artikli.Remove(artikli.Find(x => x.Naziv == naziv));
 
-            Console.WriteLine("Uspjesno izbrisan artikal\nPritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Console.WriteLine("Uspjesno izbrisan artikal");
+            Helper.PressAnything();
             return;
         }
         public static void BrisanjeArtiklaDatum(List<Artikal> artikli)
@@ -194,15 +194,15 @@ namespace DUMP___zad2._4
             Console.WriteLine($"Za izbrisat {count} artikala");
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Brisanje artikla otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
-                Helper.GlavniMeni();
+                Console.WriteLine("Brisanje artikla otkazan");
+                Helper.PressAnything();
+                return;
             }
 
             artikli.RemoveAll(x => today > x.RokTrajanja);
 
-            Console.WriteLine("Uspjesno obrisani artikli\nPritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Console.WriteLine("Uspjesno obrisani artikli");
+            Helper.PressAnything();
         }
         public static void UredivanjeArtikala(List<Artikal> artikli)
         {
@@ -251,15 +251,15 @@ namespace DUMP___zad2._4
             articleIndex = artikli.FindIndex(x => x.Naziv == naziv);
             if (articleIndex == -1)
             {
-                Console.Write($"Artikal s nazivom {naziv} nije pronaden\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.Write($"Artikal s nazivom {naziv} nije pronaden");
+                Helper.PressAnything();
                 return;
             }
 
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Uredivanje artikla otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Uredivanje artikla otkazano");
+                Helper.PressAnything();
                 return;
             }
 
@@ -291,36 +291,36 @@ namespace DUMP___zad2._4
                         var noviNaziv = "";
                         Console.WriteLine("Unesite novi naziv artikla: ");
                         noviNaziv = Console.ReadLine();
-                        Console.WriteLine($"Stari naziv {artikli[articleIndex].Naziv} novi naziv {noviNaziv}\nPritisnite bilo sto za nastavak...");
+                        Console.WriteLine($"Stari naziv {artikli[articleIndex].Naziv} novi naziv {noviNaziv}");
+                        Helper.PressAnything();
                         temp.Naziv = noviNaziv;
-                        Console.ReadLine();
                         break;
 
                     case 2:
                         var novaKolicina = 0;
                         Console.WriteLine("Unesite novu kolicinu: ");
                         novaKolicina = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara kolicina {artikli[articleIndex].Kolicina} nova kolicina {novaKolicina}\nPritisnite bilo sto za nastavak...");
+                        Console.WriteLine($"Stara kolicina {artikli[articleIndex].Kolicina} nova kolicina {novaKolicina}");
                         temp.Kolicina = novaKolicina;
-                        Console.ReadLine();
+                        Helper.PressAnything();
                         break;
 
                     case 3:
                         var novaCijena = 0.0;
                         Console.WriteLine("Unesite novu cijenu: ");
                         novaCijena = double.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara cijena {artikli[articleIndex].Cijena} nova cijena {novaCijena}\nPritisnite bilo sto za nastavak...");
+                        Console.WriteLine($"Stara cijena {artikli[articleIndex].Cijena} nova cijena {novaCijena}");
                         temp.Cijena = novaCijena;
-                        Console.ReadLine();
+                        Helper.PressAnything();
                         break;
 
                     case 4:
                         var noviDatum = new DateTime();
                         Console.WriteLine("Unesite novi datum valjanosti: ");
                         noviDatum = DateTime.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara cijena {artikli[articleIndex].RokTrajanja.ToString("dd MM yyyy")} novi datum {noviDatum.ToString("dd MM yyyy")}\nPritisnite bilo sto za nastavak...");
+                        Console.WriteLine($"Stara cijena {artikli[articleIndex].RokTrajanja.ToString("dd MM yyyy")} novi datum {noviDatum.ToString("dd MM yyyy")}");
                         temp.RokTrajanja = noviDatum;
-                        Console.ReadLine();
+                        Helper.PressAnything();
                         break;
 
                     default:
@@ -330,8 +330,7 @@ namespace DUMP___zad2._4
             } while (true);
 
             artikli[articleIndex] = temp;
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
             return;
 
         }
@@ -345,8 +344,7 @@ namespace DUMP___zad2._4
 
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Uredivanje artikla otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Uredivanje artikla otkazano");
                 return;
             }
 
@@ -355,8 +353,7 @@ namespace DUMP___zad2._4
                 item.Cijena *= postotak;
             }
 
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
             return;
         }
         public static void IspisiArtikala(List<Artikal> artikli, List<Racun> racuni)
@@ -433,8 +430,7 @@ namespace DUMP___zad2._4
                 temp.Clear();
                 break;
             } while (true);
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
         }
         public static void IspisArtikala(List<Artikal> artikli)
         {
