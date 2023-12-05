@@ -207,6 +207,9 @@ namespace DUMP___zad2._4
         {
             var today = DateTime.Today;
             var count = artikli.Count(x => (today > x.RokTrajanja));
+
+            Console.Clear();
+
             Console.WriteLine("Brisanje svih artikala kojima je istekao datum");
             if (count == 0)
             {
@@ -266,9 +269,10 @@ namespace DUMP___zad2._4
             var articleIndex = 0;
             var userChoice = -1;
 
+            Console.Clear();
             Console.WriteLine("Uredivanje artikla po nazivu");
 
-            Console.WriteLine("Unesite naziv artikla: ");
+            Console.Write("Unesite naziv artikla: ");
             naziv = Console.ReadLine();
 
             articleIndex = artikli.FindIndex(x => x.Naziv == naziv);
@@ -287,41 +291,42 @@ namespace DUMP___zad2._4
             }
 
             var temp = artikli[articleIndex];
-
+            bool editing = true;
             do
             {
-                Console.Clear();
-                Console.WriteLine("Sta zelite promjeniti:");
-                Console.WriteLine("1 - Naziv");
-                Console.WriteLine("2 - Kolicinu");
-                Console.WriteLine("3 - Cijenu");
-                Console.WriteLine("4 - Rok trajanja");
-                Console.WriteLine("0 - Povratak na glavni meni");
-                if (!Helper.ValidateInput(ref userChoice, 4))
+                do
                 {
-                    Helper.ErrorMessage(0);
-                    continue;
-                }
-                break;
-
-            } while (true);
-
-            do
-            {
+                    Console.Clear();
+                    Console.WriteLine($"Odabrani artikal: {artikli[articleIndex].Naziv} x{artikli[articleIndex].Kolicina} " + 
+                        $"{artikli[articleIndex].Cijena}EUR {artikli[articleIndex].RokTrajanja.ToString("d.M.yyyy")}");
+                    Console.WriteLine("Sta zelite promjeniti:");
+                    Console.WriteLine("1 - Naziv");
+                    Console.WriteLine("2 - Kolicinu");
+                    Console.WriteLine("3 - Cijenu");
+                    Console.WriteLine("4 - Rok trajanja");
+                    Console.WriteLine("0 - Zavrsetak uredivanja i povratak na glavni meni");
+                    if (!Helper.ValidateInput(ref userChoice, 4))
+                    {
+                        Helper.ErrorMessage(0);
+                        continue;
+                    }
+                    break;
+                } while (true);
+            
                 switch (userChoice)
                 {
                     case 1:
                         var noviNaziv = "";
-                        Console.WriteLine("Unesite novi naziv artikla: ");
+                        Console.Write("Unesite novi naziv artikla: ");
                         noviNaziv = Console.ReadLine();
                         Console.WriteLine($"Stari naziv {artikli[articleIndex].Naziv} novi naziv {noviNaziv}");
-                        Helper.PressAnything();
                         temp.Naziv = noviNaziv;
+                        Helper.PressAnything();
                         break;
 
                     case 2:
                         var novaKolicina = 0;
-                        Console.WriteLine("Unesite novu kolicinu: ");
+                        Console.Write("Unesite novu kolicinu: ");
                         novaKolicina = int.Parse(Console.ReadLine());
                         Console.WriteLine($"Stara kolicina {artikli[articleIndex].Kolicina} nova kolicina {novaKolicina}");
                         temp.Kolicina = novaKolicina;
@@ -330,7 +335,7 @@ namespace DUMP___zad2._4
 
                     case 3:
                         var novaCijena = 0.0;
-                        Console.WriteLine("Unesite novu cijenu: ");
+                        Console.Write("Unesite novu cijenu: ");
                         novaCijena = double.Parse(Console.ReadLine());
                         Console.WriteLine($"Stara cijena {artikli[articleIndex].Cijena} nova cijena {novaCijena}");
                         temp.Cijena = novaCijena;
@@ -339,7 +344,7 @@ namespace DUMP___zad2._4
 
                     case 4:
                         var noviDatum = new DateTime();
-                        Console.WriteLine("Unesite novi datum valjanosti: ");
+                        Console.Write("Unesite novi datum valjanosti: ");
                         noviDatum = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine($"Stara cijena {artikli[articleIndex].RokTrajanja.ToString("dd MM yyyy")} novi datum {noviDatum.ToString("dd MM yyyy")}");
                         temp.RokTrajanja = noviDatum;
@@ -347,11 +352,12 @@ namespace DUMP___zad2._4
                         break;
 
                     default:
+                        Console.WriteLine("Prekidanje uredivanja");
+                        if (Helper.Sigurni() == 1) editing = false;
+                        else { Console.WriteLine("Prekid otkazan"); Helper.PressAnything(); }
                         break;
                 }
-                break;
-            } while (true);
-
+            } while (editing);
             artikli[articleIndex] = temp;
             Helper.PressAnything();
             return;
