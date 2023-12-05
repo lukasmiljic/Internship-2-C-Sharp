@@ -83,7 +83,7 @@ namespace DUMP___zad2._4
                 {
                     Console.Write("Naziv: ");
                     naziv = Console.ReadLine();
-                    if (naziv != "")
+                    if (naziv == "")
                     {
                         Console.WriteLine("Greska! Polje naziv aritkla ne moze biti prazno!");
                         Helper.PressAnything();
@@ -182,7 +182,7 @@ namespace DUMP___zad2._4
             Console.WriteLine("Brisanje artikla po nazivu");
             Console.WriteLine("Unesite naziv artikla: ");
             naziv = Console.ReadLine();
-            foundArticleFlag = artikli.Any(x => x.Naziv == naziv);
+            foundArticleFlag = artikli.Any(x => x.Naziv.ToLower() == naziv.ToLower());
             if (foundArticleFlag == false)
             {
                 Console.Write($"Artikal s nazivom {naziv} nije pronaden");
@@ -275,7 +275,7 @@ namespace DUMP___zad2._4
             Console.Write("Unesite naziv artikla: ");
             naziv = Console.ReadLine();
 
-            articleIndex = artikli.FindIndex(x => x.Naziv == naziv);
+            articleIndex = artikli.FindIndex(x => x.Naziv.ToLower() == naziv.ToLower());    
             if (articleIndex == -1)
             {
                 Console.Write($"Artikal s nazivom {naziv} nije pronaden");
@@ -410,9 +410,7 @@ namespace DUMP___zad2._4
                     continue;
                 }
 
-                Console.Clear();
                 var temp = new List<Artikal> (artikli);
-                Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", "Naziv", "Cijena", "Kolicina", "Datum valjanosti"));
 
                 switch (userChoice)
                 {
@@ -428,13 +426,13 @@ namespace DUMP___zad2._4
                         Helper.PressAnything();
                         break;
 
-                    case 3:
+                    case 4:
                         temp.Sort((x, y) => x.RokTrajanja.CompareTo(y.RokTrajanja));
                         IspisArtikala(temp);
                         Helper.PressAnything();
                         break;
 
-                    case 4:
+                    case 3:
                         temp.Sort((x, y) => x.RokTrajanja.CompareTo(y.RokTrajanja));
                         temp.Reverse();
                         IspisArtikala(temp);
@@ -459,8 +457,8 @@ namespace DUMP___zad2._4
                         break;
 
                     default:
-                        Console.Clear();
-                        printing = false;
+                        if (Helper.Sigurni()==1)
+                            printing = false;
                         break;
                 }
                 temp.Clear();
@@ -469,6 +467,8 @@ namespace DUMP___zad2._4
         }
         public static void IspisArtikala(List<Artikal> artikli)
         {
+            Console.Clear();
+            Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", "Naziv", "Cijena", "Kolicina", "Datum valjanosti"));
             foreach (var artikal in artikli)
             { 
                 Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", artikal.Naziv, artikal.Cijena, artikal.Kolicina, artikal.RokTrajanja.ToString("d/M/yyyy")));
