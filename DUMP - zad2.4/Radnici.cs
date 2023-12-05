@@ -80,15 +80,14 @@ namespace DUMP___zad2._4
                 inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumRodenja);
                 if (!inputSuccess)
                 {
-                    Console.WriteLine("Greska prilikom unosa datuma\nPritisnite bilo sto kako bi pokusali ponovno...");
-                    Console.ReadLine();
+                    Console.WriteLine("Greska prilikom unosa datuma");
+                    Helper.PressAnything();
                     continue;
                 }
 
                 Console.WriteLine($"Uspjesno unesen radnik {ime_prezime} roden {datumRodenja}");
 
-                Console.WriteLine("Pritisnite bilo sta za povratak na glavni izbornik...");
-                Console.ReadLine();
+                Helper.PressAnything();
                 break;
             } while (true);
         }
@@ -135,22 +134,21 @@ namespace DUMP___zad2._4
             foundPersonFlag = radnici.Any(x => x.ImePrezime == imePrezime);
             if (foundPersonFlag == false)
             {
-                Console.Write($"Radnik s imenom {imePrezime} nije pronaden\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.Write($"Radnik s imenom {imePrezime} nije pronaden");
+                Helper.PressAnything();
                 return;
             }
             Console.WriteLine($"Radnik {imePrezime} je pronaden i biti ce obrisan");
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Brisanje radnika otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Brisanje radnika otkazano");
+                Helper.PressAnything();
                 return;
             }
 
             radnici.Remove(radnici.Find(x => x.ImePrezime== imePrezime));
 
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
             return;
         }
         public static void BrisanjeRadnikaGodine(List<Radnik> radnici)
@@ -160,22 +158,22 @@ namespace DUMP___zad2._4
             Console.WriteLine("Brisanje svih artikala kojima je istekao datum");
             if (count == 0)
             {
-                Console.WriteLine("Nije pronaden nijedan radnik stariji od 65 godina\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Nije pronaden nijedan radnik stariji od 65 godina");
+                Helper.PressAnything();
                 return;
             }
             Console.WriteLine($"Za izbrisat {count} radnika starijih od 65");
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Brisanje artikla otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Brisanje artikla otkazano");
+                Helper.PressAnything();
                 return;
             }
 
             radnici.RemoveAll(x => (today.Year - x.DatumRodenja.Year) >= 65);
 
-            Console.WriteLine("Uspjesno obrisani radnici\nPritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Console.WriteLine("Uspjesno obrisani radnici");
+            Helper.PressAnything();
         }
         public static void UredivanjeRadnika(List<Radnik> radnici)
         {
@@ -189,15 +187,15 @@ namespace DUMP___zad2._4
             radnikIndex = radnici.FindIndex(x => x.ImePrezime == imePrezime);
             if (radnikIndex == -1)
             {
-                Console.Write($"Radnik s imenom {imePrezime} nije pronaden\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.Write($"Radnik s imenom {imePrezime} nije pronaden");
+                Helper.PressAnything();
                 return;
             }
 
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Uredivanje radnika otkazano\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Uredivanje radnika otkazano");
+                Helper.PressAnything();
                 return;
             }
 
@@ -239,8 +237,8 @@ namespace DUMP___zad2._4
                 }
                 break;
             } while (true);
-            Console.WriteLine("Uspjesno spremljene promjene\nPritisnite bilo sto za nastavak");
-            Console.ReadLine();
+            Console.WriteLine("Uspjesno spremljene promjene");
+            Helper.PressAnything();
         }
         public static void IspisiRadnika(List<Radnik> radnici)
         {
@@ -280,8 +278,7 @@ namespace DUMP___zad2._4
                                 Console.WriteLine(radnik.ImePrezime + " " + radnik.DatumRodenja.ToString("d M yyyy"));
                             }
                         }
-                        Console.WriteLine("Pritsnite bilo sto za nastavak");
-                        Console.ReadLine();
+                        Helper.PressAnything();
                         break;
 
                     default:

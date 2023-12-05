@@ -78,15 +78,16 @@ namespace DUMP___zad2._4
                 articleIndex = artikli.FindIndex(x => x.Naziv == naziv);
                 if (articleIndex == -1)
                 {
-                    Console.Write($"Artikal s nazivom {naziv} nije pronaden\nPritisnite bilo sto za nastavak...");
-                    Console.ReadLine();
+                    Console.Write($"Artikal s nazivom {naziv} nije pronaden");
+                    Helper.PressAnything();
                     return;
                 }
                 Console.Write("Kolicina: ");
                 kolicina = int.Parse(Console.ReadLine());
                 if (kolicina > artikli[articleIndex].Kolicina)
                 {
-                    Console.WriteLine("Greska pri unosu kolicine\nPritisnite bilo sto za nastavak...");
+                    Console.WriteLine("Greska pri unosu kolicine.");
+                    Helper.PressAnything();
                     return;
                 }
                 proizvodi.Add((naziv, kolicina, artikli[articleIndex].Cijena));
@@ -101,8 +102,8 @@ namespace DUMP___zad2._4
             {
                 artikli[articleIndex].Kolicina -= kolicina;
                 racuni.Add(tempRacun);
-                Console.WriteLine("Uspjesno upisan racun\nPritisnite bilo sto za povratak...");
-                Console.ReadLine();
+                Console.WriteLine("Uspjesno upisan racun");
+                Helper.PressAnything();
             }
         }
         public static void IspisRacuna(Racun racun)
@@ -134,15 +135,14 @@ namespace DUMP___zad2._4
                 if (userChoice == 0) return;
                 if (articleIndex == -1)
                 {
-                    Console.Write($"Racun s id {userChoice} nije pronaden\nPritisnite bilo sto za nastavak...");
-                    Console.ReadLine();
+                    Console.Write($"Racun s id {userChoice} nije pronaden");
+                    Helper.PressAnything();
                     return;
                 }
                 Console.Clear();
                 IspisRacuna(racuni[articleIndex]);
                 RacunCijena(racuni[articleIndex]);
-                Console.WriteLine("Pritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Helper.PressAnything();
                 break;
             } while (true);
         }

@@ -84,8 +84,7 @@ namespace DUMP___zad2._4
                 sum += artikal.Kolicina;
             }
             Console.WriteLine($"U trgovini je ukupno {sum} artikala");
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
         }
         public static void VrijednostNeprodanih(List<Artikal> artikli)
         {
@@ -96,8 +95,7 @@ namespace DUMP___zad2._4
                 sum += artikal.Cijena;
             }
             Console.WriteLine($"Vrijednost svih ne prodanih artikala je {sum}");
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
         }
         public static void VrijednostProdanih(List<Racun> racuni)
         {
@@ -113,8 +111,7 @@ namespace DUMP___zad2._4
                 }
             }
             Console.WriteLine($"Vrijednost svih prodanih artikala je {sum}");
-            Console.WriteLine("Pritisnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
         }
         public static void StanjeMjeseci(List<Racun> racuni)
         {
@@ -145,8 +142,7 @@ namespace DUMP___zad2._4
             }
 
             Console.WriteLine($"Ukupna zarada je {ukupno*1/3-placa-ostaliTroskovi}");
-            Console.WriteLine("Pritsnite bilo sto za nastavak...");
-            Console.ReadLine();
+            Helper.PressAnything();
         }
     }
 }

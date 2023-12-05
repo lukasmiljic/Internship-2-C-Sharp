@@ -46,8 +46,7 @@ namespace DUMP___zad2._4
                     break;
             }
 
-            Console.WriteLine("Unesite bilo sto za nastavak...");
-            Console.ReadLine();
+            PressAnything();
         }
         public static bool ValidateInput(ref int userChoice, int maxValue)
         {
@@ -89,14 +88,14 @@ namespace DUMP___zad2._4
                 }
                 else
                 {
-                    Console.WriteLine("Unesite ili y ili n.\nUnesite bilo sto za nastavak...");
-                    Console.ReadLine();
+                    Console.WriteLine("Unesite ili y ili n.");
+                    PressAnything();
                 }
             } while (true);
         }
         public static void PressAnything()
         {
-            Console.WriteLine("Unesite bilo sto za nastavak...");
+            Console.Write("Unesite bilo sto za nastavak...");
             Console.ReadLine();
         }
     }
