@@ -367,9 +367,11 @@ namespace DUMP___zad2._4
         {
             var postotak = 0.0;
 
-            Console.WriteLine("Uredivanje artikla popusti/poskupljenja");
+            Console.WriteLine("Uredivanje artikla popusti/poskupljenja [za popust od 23% unesite -23, za poskupljenje 23]");
             Console.WriteLine("Unesite iznos popusta/poskupljenja: ");
             postotak = double.Parse(Console.ReadLine());
+            if(postotak < 0) postotak = 0 + postotak/100;
+            else postotak = 1 + postotak/100;
 
             if (Helper.Sigurni() == 0)
             {
