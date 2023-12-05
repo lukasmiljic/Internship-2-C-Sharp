@@ -79,35 +79,58 @@ namespace DUMP___zad2._4
 
                 Console.WriteLine("Unesite podatke o artiklu");
 
-                Console.Write("Naziv: ");
-                naziv = Console.ReadLine();
-
-                Console.Write("Količina: ");
-                inputSuccess = int.TryParse(Console.ReadLine(), out kolicina);
-                if (!inputSuccess)
+                do
                 {
-                    Console.WriteLine("Greska pri unosu kolicine!");
-                    Helper.PressAnything();
-                    continue;
-                }
+                    Console.Write("Naziv: ");
+                    naziv = Console.ReadLine();
+                    if (naziv != "")
+                    {
+                        Console.WriteLine("Greska! Polje naziv aritkla ne moze biti prazno!");
+                        Helper.PressAnything();
+                        continue;
+                    }
+                    break;
+                } while (true);
 
-                Console.Write("Cijena: ");
-                inputSuccess = double.TryParse(Console.ReadLine(), out cijena);
-                if (!inputSuccess)
+                do
                 {
-                    Console.WriteLine("Greska pri unosu cijene!");
-                    Helper.PressAnything();
-                    continue;
-                }
+                    Console.Write("Količina: ");
+                    inputSuccess = int.TryParse(Console.ReadLine(), out kolicina);
+                    if (!inputSuccess)
+                    {
+                        Console.WriteLine("Greska pri unosu kolicine!");
+                        Helper.PressAnything();
+                        continue;
+                    }
+                    break;
+                } while (true);
 
-                Console.Write("Datum isteka [yyyy/mm/dd]: ");
-                inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumIsteka);
-                if (!inputSuccess)
+                do
                 {
-                    Console.WriteLine("Greska prilikom unosa datuma");
-                    Helper.PressAnything();
-                    continue;
-                }
+                    Console.Write("Cijena: ");
+                    inputSuccess = double.TryParse(Console.ReadLine(), out cijena);
+                    if (!inputSuccess)
+                    {
+                        Console.WriteLine("Greska pri unosu cijene!");
+                        Helper.PressAnything();
+                        continue;
+                    }
+                    break;
+                } while (true);
+
+                do
+                {
+                    Console.Write("Datum isteka [yyyy/mm/dd]: ");
+                    inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumIsteka);
+                    if (!inputSuccess)
+                    {
+                        Console.WriteLine("Greska prilikom unosa datuma");
+                        Helper.PressAnything();
+                        continue;
+                    }
+                    break;
+                } while (true);
+                
 
                 artikli.Add(new Artikal(naziv, kolicina, cijena, datumIsteka));
 
