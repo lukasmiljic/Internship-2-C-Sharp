@@ -5,7 +5,7 @@ namespace DUMP___zad2._4
 {
     public class Helper
     {
-        public static int GlavniMeni()
+        public static int MainMenu()
         {
             var userChoice = -1;
 
@@ -55,10 +55,10 @@ namespace DUMP___zad2._4
             if (inputSuccess == false || userChoice > maxValue || userChoice < 0) return false;
             else return true;
         }
-        public static int Izlaz()
+        public static int QuitApplication()
         {
             Console.Clear();
-            if (Sigurni() == 1)
+            if (AreYouSure() == 1)
             {
                 Console.WriteLine("Zbogom...");
                 Thread.Sleep(1000);
@@ -69,7 +69,7 @@ namespace DUMP___zad2._4
                 return 0;
             }
         }
-        public static int Sigurni()
+        public static int AreYouSure()
         {
             do
             {

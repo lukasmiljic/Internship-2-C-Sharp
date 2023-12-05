@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Artikli.cs" />
+    <Compile Include="Articles.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Racuni.cs" />
-    <Compile Include="Radnici.cs" />
-    <Compile Include="Statistika.cs" />
+    <Compile Include="Receipts.cs" />
+    <Compile Include="Workers.cs" />
+    <Compile Include="Statistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace DUMP___zad2._4
 {
-    internal class Statistika
+    public class Statistics
     {
-        public static string adminLozinka = "1234";
-        public static void StatistikaMeni(List<Racun> racuni, List<Artikal> artikli)
+        public static string adminPassword = "1234";
+        public static void StatisticsMenu(List<Receipt> receipts, List<Article> articles)
         {
             var userChoice = -1;
 
-            if (UnosLozinke() == 1) return;
+            if (InputPassword() == 1) return;
 
             do
             {
@@ -32,26 +32,26 @@ namespace DUMP___zad2._4
             switch (userChoice)
             {
                 case 1:
-                    UkupnoArtikala(artikli);
+                    ArticleCount(articles);
                     break;
 
                 case 2:
-                    VrijednostNeprodanih(artikli);
+                    UnsoldValue(articles);
                     break;
 
                 case 3:
-                    VrijednostProdanih(racuni);
+                    SoldValue(receipts);
                     break;
 
                 case 4:
-                    StanjeMjeseci(racuni);
+                    MonthlyProfits(receipts);
                     break;
 
                 default:
                     break;
             }
         }
-        public static int UnosLozinke()
+        public static int InputPassword()
         {
             string unesenaLozinka = "";
             do
@@ -61,7 +61,7 @@ namespace DUMP___zad2._4
                 unesenaLozinka = Console.ReadLine();
                 if (unesenaLozinka == "0") return 1;
 
-                if (!ProvjeraLozinke(unesenaLozinka))
+                if (!ValidatePassword(unesenaLozinka))
                 {
                     Helper.ErrorMessage(1);
                     continue;
@@ -70,50 +70,50 @@ namespace DUMP___zad2._4
             } while (true);
             return 0;
         }
-        public static bool ProvjeraLozinke(string unesenaLozinka)
+        public static bool ValidatePassword(string inputPassword)
         {
-            if (unesenaLozinka == adminLozinka) return true;
+            if (inputPassword == adminPassword) return true;
             return false;
         }
-        public static void UkupnoArtikala(List<Artikal> artikli)
+        public static void ArticleCount(List<Article> articles)
         {
             int sum = 0;
             Console.Clear();
-            foreach (var artikal in artikli)
+            foreach (var artikal in articles)
             {
-                sum += artikal.Kolicina;
+                sum += artikal.Amount;
             }
             Console.WriteLine($"U trgovini je ukupno {sum} artikala");
             Helper.PressAnything();
         }
-        public static void VrijednostNeprodanih(List<Artikal> artikli)
+        public static void UnsoldValue(List<Article> articles)
         {
             double sum = 0;
             Console.Clear();
-            foreach (var artikal in artikli)
+            foreach (var artikal in articles)
             {
-                sum += artikal.Cijena;
+                sum += artikal.Price;
             }
             Console.WriteLine($"Vrijednost svih ne prodanih artikala je {sum}");
             Helper.PressAnything();
         }
-        public static void VrijednostProdanih(List<Racun> racuni)
+        public static void SoldValue(List<Receipt> articles)
         {
             double sum = 0;
             Console.Clear();
             
-            foreach (var racun in racuni)
+            foreach (var racun in articles)
             {
                 
-                foreach (var proizvod in racuni[racuni.IndexOf(racun)].proizvodi)
+                foreach (var proizvod in articles[articles.IndexOf(racun)].receiptArticles)
                 {
-                    sum += proizvod.Cijena;
+                    sum += proizvod.Price;
                 }
             }
             Console.WriteLine($"Vrijednost svih prodanih artikala je {sum}");
             Helper.PressAnything();
         }
-        public static void StanjeMjeseci(List<Racun> racuni)
+        public static void MonthlyProfits(List<Receipt> articles)
         {
             var godina = 0;
             var mjesec = 0;
@@ -130,13 +130,13 @@ namespace DUMP___zad2._4
             placa = int.Parse(Console.ReadLine());
             Console.WriteLine("Ostali troskovi: ");
             ostaliTroskovi=int.Parse(Console.ReadLine());
-            foreach (var racun in racuni)
+            foreach (var racun in articles)
             {
-                if (racun.DatumIzdavanja.Year == godina && racun.DatumIzdavanja.Month == mjesec)
+                if (racun.IssuingDate.Year == godina && racun.IssuingDate.Month == mjesec)
                 {
-                    foreach (var proizvod in racuni[racuni.IndexOf(racun)].proizvodi)
+                    foreach (var proizvod in articles[articles.IndexOf(racun)].receiptArticles)
                     {
-                        ukupno += proizvod.Cijena;
+                        ukupno += proizvod.Price;
                     }
                 }
             }

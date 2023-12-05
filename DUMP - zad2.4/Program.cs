@@ -8,49 +8,49 @@ namespace DUMP___zad2._1
     {
         static void Main(string[] args)
         {
-            var artikli = new List<Artikal>
+            var articles = new List<Article>
             {
-                new Artikal("Cokolada", 5, 1.0, new DateTime(2023, 2, 2)),
-                new Artikal("Bonbone", 10, 2.0, new DateTime(2023, 2, 2)),
-                new Artikal("Kruh", 15, 4.0, new DateTime(2024, 2, 2)),
-                new Artikal("Piletina", 20, 8.0, new DateTime(2024, 2, 2)),
-                new Artikal("Mlijeko", 25, 16.0, new DateTime(2024, 2, 2))
+                new Article("Cokolada", 5, 1.0, new DateTime(2023, 2, 2)),
+                new Article("Bonbone", 10, 2.0, new DateTime(2023, 2, 2)),
+                new Article("Kruh", 15, 4.0, new DateTime(2024, 2, 2)),
+                new Article("Piletina", 20, 8.0, new DateTime(2024, 2, 2)),
+                new Article("Mlijeko", 25, 16.0, new DateTime(2024, 2, 2))
             };
-            var radnici = new List<Radnik>
+            var workers = new List<Worker>
             {
-                new Radnik("Ante Antic", new DateTime(2000, 1, 1)),
-                new Radnik("Bante Bantic", new DateTime(1950, 1, 1))
+                new Worker("Ante Antic", new DateTime(2000, 1, 1)),
+                new Worker("Bante Bantic", new DateTime(1950, 1, 1))
             };
-            var racuni = new List<Racun>()
+            var receipts = new List<Receipt>()
             {
-                new Racun(++Racuni.id_racuna, new DateTime(2023, 10, 1), new List<(string Naziv, int Kolicina, double Cijena)>{("Keks", 2, 3.0), ("Voda", 1, 2.0) })
+                new Receipt(++Receipts.ReceiptID, new DateTime(2023, 10, 1), new List<(string Name, int Amount, double Price)>{("Keks", 2, 3.0), ("Voda", 1, 2.0) })
             };
 
 
             int userChoice = -1;
             while (userChoice != 0)
             {
-                userChoice = Helper.GlavniMeni();
+                userChoice = Helper.MainMenu();
                 switch (userChoice)
                 {
                     case 1:
-                        Artikli.ArtikliMeni(artikli, racuni);
+                        Articles.ArticleMenu(articles, receipts);
                         break;
 
                     case 2:
-                        Radnici.RadniciMeni(radnici);
+                        Workers.WorkersMenu(workers);
                         break;
 
                     case 3:
-                        Racuni.RacuniMeni(racuni, artikli);
+                        Receipts.ReceiptMenu(receipts, articles);
                         break;
 
                     case 4:
-                        Statistika.StatistikaMeni(racuni, artikli);
+                        Statistics.StatisticsMenu(receipts, articles);
                         break;
 
                     case 0:
-                        if (Helper.Izlaz() == 0) userChoice = -1;
+                        if (Helper.QuitApplication() == 0) userChoice = -1;
                         break;
 
                     default:

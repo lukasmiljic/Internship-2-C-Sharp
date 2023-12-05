@@ -5,20 +5,20 @@ using System.Linq;
 namespace DUMP___zad2._4
 {
 
-    public class Radnik
+    public class Worker
     {
-        public string ImePrezime;
-        public DateTime DatumRodenja;
+        public string FullName;
+        public DateTime DateOfBirth;
 
-        public Radnik(string ImePrezime, DateTime DatumRodenja)
+        public Worker(string fullName, DateTime dateOfBirth)
         {
-            this.ImePrezime = ImePrezime;
-            this.DatumRodenja = DatumRodenja;
+            FullName = fullName;
+            this.DateOfBirth = dateOfBirth;
         }
     }
-    public class Radnici
+    public class Workers
     {
-        public static void RadniciMeni(List<Radnik> radnici)
+        public static void WorkersMenu(List<Worker> workers)
         {
             var userChoice = -1;
 
@@ -42,30 +42,30 @@ namespace DUMP___zad2._4
             switch (userChoice)
             {
                 case 1:
-                    UnosRadnika(radnici);
+                    InputWorkers(workers);
                     break;
 
                 case 2:
-                    BrisanjeRadnika(radnici);
+                    DeleteWorkers(workers);
                     break;
 
                 case 3:
-                    UredivanjeRadnika(radnici);
+                    EditWorker(workers);
                     break;
 
                 case 4:
-                    IspisiRadnika(radnici);
+                    PrintWorkers(workers);
                     break;
 
                 default:
                     break;
             }
         }
-        public static void UnosRadnika(List<Radnik> radnici)
+        public static void InputWorkers(List<Worker> workers)
         {
-            var ime_prezime = "";
-            DateTime datumRodenja = new DateTime(1, 1, 1);
-            var inputSuccess = false;
+            string fullName ;
+            DateTime dateOfBirth;
+            bool inputSuccess;
 
             do
             {
@@ -74,10 +74,10 @@ namespace DUMP___zad2._4
                 Console.WriteLine("Unesite podatke o radniku");
 
                 Console.Write("Ime Prezime: ");
-                ime_prezime = Console.ReadLine();
+                fullName = Console.ReadLine();
 
                 Console.Write("Datum rodenja [yyyy/mm/dd]: ");
-                inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumRodenja);
+                inputSuccess = DateTime.TryParse(Console.ReadLine(), out dateOfBirth);
                 if (!inputSuccess)
                 {
                     Console.WriteLine("Greska prilikom unosa datuma");
@@ -85,13 +85,14 @@ namespace DUMP___zad2._4
                     continue;
                 }
 
-                Console.WriteLine($"Uspjesno unesen radnik {ime_prezime} roden {datumRodenja}");
+                workers.Add(new Worker(fullName, dateOfBirth));
+                Console.WriteLine($"Uspjesno unesen radnik {fullName} roden {dateOfBirth}");
 
                 Helper.PressAnything();
                 break;
             } while (true);
         }
-        public static void BrisanjeRadnika(List<Radnik> radnici)
+        public static void DeleteWorkers(List<Worker> workers)
         {
             var userChoice = -1;
 
@@ -113,25 +114,25 @@ namespace DUMP___zad2._4
             switch (userChoice)
             {
                 case 1:
-                    BrisanjeRadnikaIme(radnici);
+                    DeleteWorkerName(workers);
                     break;
 
                 case 2:
-                    BrisanjeRadnikaGodine(radnici);
+                    DeleteWorkerAge(workers);
                     break;
 
                 default:
                     break;
             }
         }
-        public static void BrisanjeRadnikaIme(List<Radnik> radnici)
+        public static void DeleteWorkerName(List<Worker> workers)
         {
             var imePrezime = "";
             var foundPersonFlag = false;
             Console.WriteLine("Brisanje radnika po imenu");
             Console.WriteLine("Unesite ime i prezime radnika: ");
             imePrezime = Console.ReadLine();
-            foundPersonFlag = radnici.Any(x => x.ImePrezime == imePrezime);
+            foundPersonFlag = workers.Any(x => x.FullName == imePrezime);
             if (foundPersonFlag == false)
             {
                 Console.Write($"Radnik s imenom {imePrezime} nije pronaden");
@@ -139,22 +140,22 @@ namespace DUMP___zad2._4
                 return;
             }
             Console.WriteLine($"Radnik {imePrezime} je pronaden i biti ce obrisan");
-            if (Helper.Sigurni() == 0)
+            if (Helper.AreYouSure() == 0)
             {
                 Console.WriteLine("Brisanje radnika otkazano");
                 Helper.PressAnything();
                 return;
             }
 
-            radnici.Remove(radnici.Find(x => x.ImePrezime== imePrezime));
+            workers.Remove(workers.Find(x => x.FullName== imePrezime));
 
             Helper.PressAnything();
             return;
         }
-        public static void BrisanjeRadnikaGodine(List<Radnik> radnici)
+        public static void DeleteWorkerAge(List<Worker> workers)
         {
             var today = DateTime.Today;
-            var count = radnici.Count(x => (today.Year - x.DatumRodenja.Year) >= 65);
+            var count = workers.Count(x => (today.Year - x.DateOfBirth.Year) >= 65);
             Console.WriteLine("Brisanje svih artikala kojima je istekao datum");
             if (count == 0)
             {
@@ -163,19 +164,19 @@ namespace DUMP___zad2._4
                 return;
             }
             Console.WriteLine($"Za izbrisat {count} radnika starijih od 65");
-            if (Helper.Sigurni() == 0)
+            if (Helper.AreYouSure() == 0)
             {
                 Console.WriteLine("Brisanje artikla otkazano");
                 Helper.PressAnything();
                 return;
             }
 
-            radnici.RemoveAll(x => (today.Year - x.DatumRodenja.Year) >= 65);
+            workers.RemoveAll(x => (today.Year - x.DateOfBirth.Year) >= 65);
 
             Console.WriteLine("Uspjesno obrisani radnici");
             Helper.PressAnything();
         }
-        public static void UredivanjeRadnika(List<Radnik> radnici)
+        public static void EditWorker(List<Worker> workers)
         {
             var imePrezime = "";
             var radnikIndex = 0;
@@ -184,7 +185,7 @@ namespace DUMP___zad2._4
             Console.WriteLine("Unesite ime i prezime radnika: ");
             imePrezime = Console.ReadLine();
 
-            radnikIndex = radnici.FindIndex(x => x.ImePrezime == imePrezime);
+            radnikIndex = workers.FindIndex(x => x.FullName == imePrezime);
             if (radnikIndex == -1)
             {
                 Console.Write($"Radnik s imenom {imePrezime} nije pronaden");
@@ -192,7 +193,7 @@ namespace DUMP___zad2._4
                 return;
             }
 
-            if (Helper.Sigurni() == 0)
+            if (Helper.AreYouSure() == 0)
             {
                 Console.WriteLine("Uredivanje radnika otkazano");
                 Helper.PressAnything();
@@ -222,14 +223,14 @@ namespace DUMP___zad2._4
                         var novoImePrezime = "";
                         Console.WriteLine("Unesite novo ime radnika: ");
                         novoImePrezime = Console.ReadLine();
-                        radnici[radnikIndex].ImePrezime = novoImePrezime;
+                        workers[radnikIndex].FullName = novoImePrezime;
                         break;
 
                     case 2:
                         var noviDatum = new DateTime();
                         Console.WriteLine("Unesite novi datum rodenja: ");
                         noviDatum = DateTime.Parse(Console.ReadLine());
-                        radnici[radnikIndex].DatumRodenja = noviDatum;
+                        workers[radnikIndex].DateOfBirth = noviDatum;
                         break;
 
                     default:
@@ -240,7 +241,7 @@ namespace DUMP___zad2._4
             Console.WriteLine("Uspjesno spremljene promjene");
             Helper.PressAnything();
         }
-        public static void IspisiRadnika(List<Radnik> radnici)
+        public static void PrintWorkers(List<Worker> radnici)
         {
             var userChoice = -1;
 
@@ -265,7 +266,7 @@ namespace DUMP___zad2._4
                     case 1:
                         foreach (var radnik in radnici)
                         {
-                            Console.WriteLine(radnik.ImePrezime + " " + radnik.DatumRodenja.ToString("d M yyyy"));
+                            Console.WriteLine(radnik.FullName + " " + radnik.DateOfBirth.ToString("d M yyyy"));
                         }
                         break;
 
@@ -273,9 +274,9 @@ namespace DUMP___zad2._4
                         DateTime today = DateTime.Now;
                         foreach (var radnik in radnici)
                         {
-                            if (radnik.DatumRodenja.Month == today.Month)
+                            if (radnik.DateOfBirth.Month == today.Month)
                             {
-                                Console.WriteLine(radnik.ImePrezime + " " + radnik.DatumRodenja.ToString("d M yyyy"));
+                                Console.WriteLine(radnik.FullName + " " + radnik.DateOfBirth.ToString("d M yyyy"));
                             }
                         }
                         Helper.PressAnything();
