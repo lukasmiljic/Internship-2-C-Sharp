@@ -71,7 +71,7 @@ namespace DUMP___zad2._4
             string Name;
             int Amount;
             double Price;
-            DateTime datumIsteka;
+            DateTime ExpirationDate;
             bool inputSuccess;
 
             do
@@ -108,7 +108,7 @@ namespace DUMP___zad2._4
 
                 do
                 {
-                    Console.Write("Price: ");
+                    Console.Write("Cijena: ");
                     inputSuccess = double.TryParse(Console.ReadLine(), out Price);
                     if (!inputSuccess)
                     {
@@ -122,7 +122,7 @@ namespace DUMP___zad2._4
                 do
                 {
                     Console.Write("Datum isteka [yyyy/mm/dd]: ");
-                    inputSuccess = DateTime.TryParse(Console.ReadLine(), out datumIsteka);
+                    inputSuccess = DateTime.TryParse(Console.ReadLine(), out ExpirationDate);
                     if (!inputSuccess)
                     {
                         Console.WriteLine("Greska prilikom unosa datuma");
@@ -133,11 +133,11 @@ namespace DUMP___zad2._4
                 } while (true);
                 
                 //ovdje javlja gresku da ne postoji u trenutnom kontekstu
-                articles.Add(new Article(Name, Amount, Price, datumIsteka));
+                articles.Add(new Article(Name, Amount, Price, ExpirationDate));
 
-                Console.WriteLine($"Uspjesno unesen proizvod pod Nameom {Name}, " +
+                Console.WriteLine($"Uspjesno unesen proizvod pod Nazivom {Name}, " +
                     $"s cijenom {Price} EUR, kolicinom {Amount} i " +
-                    $"datum isteka valjanosti od {datumIsteka.ToString("d/M/yyyy")}");
+                    $"datum isteka valjanosti od {ExpirationDate.ToString("d/M/yyyy")}");
 
                 Helper.PressAnything();
                 break;
@@ -180,17 +180,21 @@ namespace DUMP___zad2._4
         {
             var Name = "";
             var foundArticleFlag = false;
-            Console.WriteLine("Brisanje artikla po Nameu");
-            Console.WriteLine("Unesite Name artikla: ");
+
+            Console.WriteLine("Brisanje artikla po nazivu");
+
+            Console.WriteLine("Unesite naziv artikla: ");
             Name = Console.ReadLine();
+
             foundArticleFlag = articles.Any(x => x.Name.ToLower() == Name.ToLower());
             if (foundArticleFlag == false)
             {
-                Console.Write($"Artikal s Nameom {Name} nije pronaden");
+                Console.Write($"Artikal s nazivom {Name} nije pronaden");
                 Helper.PressAnything();
                 return;
             }
-            Console.WriteLine($"Arikal {Name} je pronaden i biti ce obrisan");
+
+            Console.WriteLine($"Artikal {Name} je pronaden i biti ce obrisan");
             if (Helper.AreYouSure() == 0)
             {
                 Console.WriteLine("Brisanje artikla otkazano");
@@ -250,6 +254,7 @@ namespace DUMP___zad2._4
                 }
                 break;
             } while (true);
+
             switch (userChoice)
             {
                 case 1:
@@ -271,15 +276,15 @@ namespace DUMP___zad2._4
             var userChoice = -1;
 
             Console.Clear();
-            Console.WriteLine("Uredivanje artikla po Nameu");
+            Console.WriteLine("Uredivanje artikla po nazivu");
 
-            Console.Write("Unesite Name artikla: ");
+            Console.Write("Unesite naziv artikla: ");
             Name = Console.ReadLine();
 
             articleIndex = articles.FindIndex(x => x.Name.ToLower() == Name.ToLower());    
             if (articleIndex == -1)
             {
-                Console.Write($"Artikal s Nameom {Name} nije pronaden");
+                Console.Write($"Artikal s nazivom {Name} nije pronaden");
                 Helper.PressAnything();
                 return;
             }
@@ -317,38 +322,38 @@ namespace DUMP___zad2._4
                 switch (userChoice)
                 {
                     case 1:
-                        var noviName = "";
-                        Console.Write("Unesite novi Name artikla: ");
-                        noviName = Console.ReadLine();
-                        Console.WriteLine($"Stari Name {articles[articleIndex].Name} novi Name {noviName}");
-                        temp.Name = noviName;
+                        var newName = "";
+                        Console.Write("Unesite novi naziv artikla: ");
+                        newName = Console.ReadLine();
+                        Console.WriteLine($"Stari Name {articles[articleIndex].Name} novi Name {newName}");
+                        temp.Name = newName;
                         Helper.PressAnything();
                         break;
 
                     case 2:
-                        var novaAmount = 0;
+                        var newAmount = 0;
                         Console.Write("Unesite novu kolicinu: ");
-                        novaAmount = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara Amount {articles[articleIndex].Amount} nova Amount {novaAmount}");
-                        temp.Amount = novaAmount;
+                        newAmount = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Stara Amount {articles[articleIndex].Amount} nova Amount {newAmount}");
+                        temp.Amount = newAmount;
                         Helper.PressAnything();
                         break;
 
                     case 3:
-                        var novaPrice = 0.0;
+                        var newPrice = 0.0;
                         Console.Write("Unesite novu cijenu: ");
-                        novaPrice = double.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara Price {articles[articleIndex].Price} nova Price {novaPrice}");
-                        temp.Price = novaPrice;
+                        newPrice = double.Parse(Console.ReadLine());
+                        Console.WriteLine($"Stara Price {articles[articleIndex].Price} nova Price {newPrice}");
+                        temp.Price = newPrice;
                         Helper.PressAnything();
                         break;
 
                     case 4:
-                        var noviDatum = new DateTime();
+                        var newDate = new DateTime();
                         Console.Write("Unesite novi datum valjanosti: ");
-                        noviDatum = DateTime.Parse(Console.ReadLine());
-                        Console.WriteLine($"Stara Price {articles[articleIndex].ExpirationDate.ToString("dd MM yyyy")} novi datum {noviDatum.ToString("dd MM yyyy")}");
-                        temp.ExpirationDate = noviDatum;
+                        newDate = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine($"Stara Price {articles[articleIndex].ExpirationDate.ToString("dd MM yyyy")} novi datum {newDate.ToString("dd MM yyyy")}");
+                        temp.ExpirationDate = newDate;
                         Helper.PressAnything();
                         break;
 
@@ -366,13 +371,13 @@ namespace DUMP___zad2._4
         }
         public static void Discounts(List<Article> articles)
         {
-            var postotak = 0.0;
+            var percentage = 0.0;
 
             Console.WriteLine("Uredivanje artikla popusti/poskupljenja [za popust od 23% unesite -23, za poskupljenje 23]");
             Console.WriteLine("Unesite iznos popusta/poskupljenja: ");
-            postotak = double.Parse(Console.ReadLine());
-            if(postotak < 0) postotak = 0 + postotak/100;
-            else postotak = 1 + postotak/100;
+            percentage = double.Parse(Console.ReadLine());
+            if(percentage < 0) percentage = 0 + percentage/100;
+            else percentage = 1 + percentage/100;
 
             if (Helper.AreYouSure() == 0)
             {
@@ -382,7 +387,7 @@ namespace DUMP___zad2._4
 
             foreach (var item in articles)
             {
-                item.Price *= postotak;
+                item.Price *= percentage;
             }
 
             Helper.PressAnything();
@@ -453,7 +458,7 @@ namespace DUMP___zad2._4
                         break;
 
                     case 7:
-                        LestSold(articles, receipts);
+                        LeastSold(articles, receipts);
                         Helper.PressAnything();
                         break;
 
@@ -469,7 +474,7 @@ namespace DUMP___zad2._4
         public static void PrintArticle(List<Article> articles)
         {
             Console.Clear();
-            Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", "Name", "Price", "Amount", "Datum valjanosti"));
+            Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", "Naziv", "Cijena", "Kolicina", "Datum valjanosti"));
             foreach (var artikal in articles)
             { 
                 Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", artikal.Name, artikal.Price, artikal.Amount, artikal.ExpirationDate.ToString("d/M/yyyy")));
@@ -477,44 +482,44 @@ namespace DUMP___zad2._4
         }
         public static void MostSold(List<Article> articles, List<Receipt> receipts)
         {
-            var najprodavanijiCounter = 0;
-            var najprodavanijiName = "";
+            var mostSoldCounter = 0;
+            var mostSoldName = "";
 
             Console.Clear();
 
-            foreach (var racun in receipts)
+            foreach (var receipt in receipts)
             {
-                foreach (var proizvod in receipts[receipts.IndexOf(racun)].receiptArticles)
+                foreach (var article in receipts[receipts.IndexOf(receipt)].receiptArticles)
                 {
-                    if (proizvod.Amount > najprodavanijiCounter)
+                    if (article.Amount > mostSoldCounter)
                     {
-                        najprodavanijiCounter = proizvod.Amount;
-                        najprodavanijiName = proizvod.Name;
+                        mostSoldCounter = article.Amount;
+                        mostSoldName = article.Name;
                     }
                 }
             }
 
-            Console.WriteLine($"Najprodavaniji proizvod je {najprodavanijiName} prodan {najprodavanijiCounter} puta");
+            Console.WriteLine($"Najprodavaniji proizvod je {mostSoldName} prodan {mostSoldCounter} puta");
         }
-        public static void LestSold(List<Article> articles, List<Receipt> receipts)
+        public static void LeastSold(List<Article> articles, List<Receipt> receipts)
         {
-            var najprodavanijiCounter = receipts[0].receiptArticles[0].Amount;
-            var najprodavanijiName = "";
+            var leastSoldCounter = receipts[0].receiptArticles[0].Amount;
+            var leastSoldName = "";
 
             Console.Clear();
-            foreach (var racun in receipts)
+            foreach (var receipt in receipts)
             {
-                foreach (var proizvod in receipts[receipts.IndexOf(racun)].receiptArticles)
+                foreach (var article in receipts[receipts.IndexOf(receipt)].receiptArticles)
                 {
-                    if (proizvod.Amount < najprodavanijiCounter)
+                    if (article.Amount < leastSoldCounter)
                     {
-                        najprodavanijiCounter = proizvod.Amount;
-                        najprodavanijiName = proizvod.Name;
+                        leastSoldCounter = article.Amount;
+                        leastSoldName = article.Name;
                     }
                 }
             }
 
-            Console.WriteLine($"Najmanje prodavani proizvod je {najprodavanijiName} prodan {najprodavanijiCounter} puta");
+            Console.WriteLine($"Najmanje prodavani proizvod je {leastSoldName} prodan {leastSoldCounter} puta");
         }
     }
 }
