@@ -388,7 +388,7 @@ namespace DUMP___zad2._4
         public static void IspisiArtikala(List<Artikal> artikli, List<Racun> racuni)
         {
             var userChoice = -1;
-
+            var printing = true;
             do
             {
                 Console.Clear();
@@ -416,49 +416,53 @@ namespace DUMP___zad2._4
                 {
                     case 1:
                         IspisArtikala(artikli);
+                        Helper.PressAnything();
                         break;
 
                     case 2:
                         
                         temp.Sort((x,y) => x.Naziv.CompareTo(y.Naziv));
                         IspisArtikala(temp);
+                        Helper.PressAnything();
                         break;
 
                     case 3:
                         temp.Sort((x, y) => x.RokTrajanja.CompareTo(y.RokTrajanja));
                         IspisArtikala(temp);
+                        Helper.PressAnything();
                         break;
 
                     case 4:
                         temp.Sort((x, y) => x.RokTrajanja.CompareTo(y.RokTrajanja));
                         temp.Reverse();
                         IspisArtikala(temp);
+                        Helper.PressAnything();
                         break;
 
 
                     case 5:
                         temp.Sort((x, y) => x.Kolicina.CompareTo(y.Kolicina));
                         IspisArtikala(temp);
+                        Helper.PressAnything();
                         break;
 
                     case 6:
                         Najprodavaniji(artikli, racuni);
+                        Helper.PressAnything();
                         break;
 
                     case 7:
                         fuj(artikli, racuni);
-                        break;
-
-                    case 0:
-                        Console.Clear();
+                        Helper.PressAnything();
                         break;
 
                     default:
+                        Console.Clear();
+                        printing = false;
                         break;
                 }
                 temp.Clear();
-                break;
-            } while (true);
+            } while (printing);
             Helper.PressAnything();
         }
         public static void IspisArtikala(List<Artikal> artikli)
