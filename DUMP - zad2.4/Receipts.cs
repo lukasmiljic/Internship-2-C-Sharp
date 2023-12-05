@@ -5,20 +5,20 @@ namespace DUMP___zad2._4
 {
     public class Receipt
     {
+        private int ReceiptID = 0;
         public int id;
         public DateTime IssuingDate;
         public List<(string Name, int Amount, double Price)> receiptArticles;
 
-        public Receipt(int id, DateTime issuingDate, List<(string Name, int Amount, double Price)> receiptArticles)
+        public Receipt(DateTime issuingDate, List<(string Name, int Amount, double Price)> receiptArticles)
         {
-            this.id = id;
+            id = ++ReceiptID;
             IssuingDate = issuingDate;
             this.receiptArticles = receiptArticles;
         }
     }
     public class Receipts
     {
-        public static int ReceiptID = 0;
         public static void ReceiptMenu(List<Receipt> receipts, List<Article> articles)
         {
             var userChoice = -1;
@@ -56,9 +56,9 @@ namespace DUMP___zad2._4
         {
             var Name = "";
             var Amount = 0;
-            var kraj = "KRAJ";
+            var endFlag = "KRAJ";
             var articleIndex = 0;
-            List<(string Name, int Amount, double Price)> proizvodi = new List<(string Name, int Amount, double Price)>();
+            List<(string Name, int Amount, double Price)> receiptArticles = new List<(string Name, int Amount, double Price)>();
 
             Console.Clear();
             Console.WriteLine("Unos novog racuna\nUnesite KRAJ kao Name proizvoda za prekid unosa");
@@ -67,7 +67,7 @@ namespace DUMP___zad2._4
             {
                 Console.Write("Name proizvoda: ");
                 Name = Console.ReadLine();
-                if (Name == kraj)
+                if (Name == endFlag)
                 {
                     if (Helper.AreYouSure() == 1)
                     {
@@ -90,18 +90,18 @@ namespace DUMP___zad2._4
                     Helper.PressAnything();
                     return;
                 }
-                proizvodi.Add((Name, Amount, articles[articleIndex].Price));
+                receiptArticles.Add((Name, Amount, articles[articleIndex].Price));
             } while (true);
 
             Console.WriteLine("Zelite li nastaviti s ovim racunom");
 
-            var tempRacun = new Receipt(++ReceiptID, DateTime.Today, proizvodi);
-            PrintReceipt(tempRacun);
+            var tempReceipt = new Receipt(DateTime.Today, receiptArticles);
+            PrintReceipt(tempReceipt);
 
             if(Helper.AreYouSure() == 1)
             {
                 articles[articleIndex].Amount -= Amount;
-                receipts.Add(tempRacun);
+                receipts.Add(tempReceipt);
                 Console.WriteLine("Uspjesno upisan racun");
                 Helper.PressAnything();
             }
@@ -109,20 +109,20 @@ namespace DUMP___zad2._4
         public static void PrintReceipt(Receipt receipt)
         {
             Console.WriteLine("Id racuna: " + receipt.id + " Datum izdavanja: " + receipt.IssuingDate.ToString("d M yyyy"));
-            foreach (var proizvod in receipt.receiptArticles)
+            foreach (var article in receipt.receiptArticles)
             {
-                Console.WriteLine("\tName: " + proizvod.Name + " Amount: " + proizvod.Amount);
+                Console.WriteLine("\tName: " + article.Name + " Amount: " + article.Amount);
             }
         }
-        public static void PrintAllReceipts(List<Receipt> receipt)
+        public static void PrintAllReceipts(List<Receipt> receipts)
         {
             Console.Clear();
             var articleIndex = 0;
             int userChoice = -1;
             Console.WriteLine("Ispis svih racuna");
-            foreach (var racun in receipt)
+            foreach (var receipt in receipts)
             {
-                Console.WriteLine("Id " + racun.id + " Datum i vrijeme " + racun.IssuingDate.ToString("d MM yyyy") + " Ukupni iznos: " + ReceiptPrice(racun));
+                Console.WriteLine("Id " + receipt.id + " Datum i vrijeme " + receipt.IssuingDate.ToString("d MM yyyy") + " Ukupni iznos: " + ReceiptPrice(receipt));
             }
 
             do
@@ -130,7 +130,7 @@ namespace DUMP___zad2._4
                 Console.WriteLine("Za vise informacija unesite id racuna. 0 za izlaz");
                 userChoice = int.Parse(Console.ReadLine());
                 Console.Clear();
-                articleIndex = receipt.FindIndex(x => x.id == userChoice);
+                articleIndex = receipts.FindIndex(x => x.id == userChoice);
                 if (userChoice == 0) return;
                 if (articleIndex == -1)
                 {
@@ -139,8 +139,8 @@ namespace DUMP___zad2._4
                     return;
                 }
                 Console.Clear();
-                PrintReceipt(receipt[articleIndex]);
-                ReceiptPrice(receipt[articleIndex]);
+                PrintReceipt(receipts[articleIndex]);
+                ReceiptPrice(receipts[articleIndex]);
                 Helper.PressAnything();
                 break;
             } while (true);

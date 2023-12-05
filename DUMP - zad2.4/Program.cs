@@ -23,7 +23,7 @@ namespace DUMP___zad2._1
             };
             var receipts = new List<Receipt>()
             {
-                new Receipt(++Receipts.ReceiptID, new DateTime(2023, 10, 1), new List<(string Name, int Amount, double Price)>{("Keks", 2, 3.0), ("Voda", 1, 2.0) })
+                new Receipt(new DateTime(2023, 10, 1), new List<(string Name, int Amount, double Price)>{("Keks", 2, 3.0), ("Voda", 1, 2.0) })
             };
 
 
