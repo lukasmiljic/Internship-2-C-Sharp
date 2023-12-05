@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace DUMP___zad2._4
+﻿namespace zad2
 {
     public class Article
     {

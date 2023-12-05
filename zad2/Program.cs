@@ -1,8 +1,4 @@
-﻿using DUMP___zad2._4;
-using System;
-using System.Collections.Generic;
-
-namespace DUMP___zad2._1
+﻿namespace zad2
 {
     internal class Program
     {
