@@ -47,9 +47,6 @@ namespace DUMP___zad2._4
                     StanjeMjeseci(racuni);
                     break;
 
-                case 0:
-                    break;
-
                 default:
                     break;
             }

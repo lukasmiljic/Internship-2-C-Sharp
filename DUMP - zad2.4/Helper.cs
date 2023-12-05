@@ -74,7 +74,6 @@ namespace DUMP___zad2._4
         {
             do
             {
-                //Console.Clear();
                 char userChoice;
                 Console.Write("Jeste li sigurni [y/n]: ");
                 userChoice = char.Parse(Console.ReadLine());

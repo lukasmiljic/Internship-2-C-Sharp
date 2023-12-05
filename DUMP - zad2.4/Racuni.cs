@@ -48,9 +48,6 @@ namespace DUMP___zad2._4
                     IspisSvihRacuna(racuni);
                     break;
 
-                case 0:
-                    return;
-
                 default:
                     break;
             }

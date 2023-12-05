@@ -61,9 +61,6 @@ namespace DUMP___zad2._4
                     IspisiArtikala(artikli, racuni);
                     break;
 
-                case 0:
-                    break;
-
                 default:
                     break;
             }
@@ -151,9 +148,6 @@ namespace DUMP___zad2._4
                     BrisanjeArtiklaDatum(artikli);
                     break;
 
-                case 0:
-                    break;
-
                 default:
                     break;
             }
@@ -238,9 +232,6 @@ namespace DUMP___zad2._4
                 case 2:
                     Popusti(artikli);
                     break;
-
-                case 0:
-                    return;
 
                 default:
                     break;

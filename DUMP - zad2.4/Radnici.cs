@@ -57,9 +57,6 @@ namespace DUMP___zad2._4
                     IspisiRadnika(radnici);
                     break;
 
-                case 0:
-                    return;
-
                 default:
                     break;
             }
@@ -122,9 +119,6 @@ namespace DUMP___zad2._4
 
                 case 2:
                     BrisanjeRadnikaGodine(radnici);
-                    break;
-
-                case 0:
                     break;
 
                 default:
@@ -239,6 +233,7 @@ namespace DUMP___zad2._4
                         noviDatum = DateTime.Parse(Console.ReadLine());
                         radnici[radnikIndex].DatumRodenja = noviDatum;
                         break;
+
                     default:
                         break;
                 }
@@ -288,9 +283,6 @@ namespace DUMP___zad2._4
                         Console.WriteLine("Pritsnite bilo sto za nastavak");
                         Console.ReadLine();
                         break;
-
-                    case 0:
-                        return;
 
                     default:
                         break;
