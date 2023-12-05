@@ -210,14 +210,14 @@ namespace DUMP___zad2._4
             Console.WriteLine("Brisanje svih artikala kojima je istekao datum");
             if (count == 0)
             {
-                Console.WriteLine("Nije pronaden nijedan artikal kojem je istekao rok trajanja\nPritisnite bilo sto za nastavak...");
-                Console.ReadLine();
+                Console.WriteLine("Nije pronaden nijedan artikal kojem je istekao rok trajanja");
+                Helper.PressAnything();
                 return;
             }
             Console.WriteLine($"Za izbrisat {count} artikala");
             if (Helper.Sigurni() == 0)
             {
-                Console.WriteLine("Brisanje artikla otkazan");
+                Console.WriteLine("Brisanje artikla otkazano");
                 Helper.PressAnything();
                 return;
             }
@@ -403,7 +403,7 @@ namespace DUMP___zad2._4
                 }
 
                 Console.Clear();
-                var temp = artikli;
+                var temp = new List<Artikal> (artikli);
                 Console.WriteLine(String.Format("{0,15}{1,10}{2,10}{3,20}", "Naziv", "Cijena", "Kolicina", "Datum valjanosti"));
 
                 switch (userChoice)
